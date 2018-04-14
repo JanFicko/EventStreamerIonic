@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ModalController } from 'ionic-angular';
 import { EventServiceProvider } from '../../providers/event-service/event-service';
+import { Network } from '@ionic-native/network';
 
 @IonicPage()
 @Component({
@@ -12,21 +13,28 @@ export class HomePage {
 
   public events: any;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public eventServiceProvider: EventServiceProvider) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public eventServiceProvider: EventServiceProvider, private network: Network) {
     this.loadEvents();
   }
 
   loadEvents(){
-    this.eventServiceProvider.getEvents()
-      .then(data => {
-        this.events = data;
-      });
+    if (this.network.type == "none") {
+      this.events = JSON.parse(window.localStorage.getItem("events"));
+    } else {
+      this.eventServiceProvider.getEvents()
+        .then(data => {
+          this.events = data;
+          window.localStorage.setItem("events", JSON.stringify(data))
+        });
+    }
+
   }
 
   addEvent() {
     let addModal = this.modalCtrl.create('AddEventPage');
     addModal.onDidDismiss(() => {
       this.loadEvents();
+      console.log(window.localStorage.getItem("test"))
     });
     addModal.present();
   }

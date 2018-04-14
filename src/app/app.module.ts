@@ -10,6 +10,8 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
 import { HttpClientModule } from '@angular/common/http';
 import { EventServiceProvider } from '../providers/event-service/event-service';
 
+import { Network } from '@ionic-native/network';
+
 @NgModule({
   declarations: [
     MyApp
@@ -28,7 +30,8 @@ import { EventServiceProvider } from '../providers/event-service/event-service';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserServiceProvider,
-    EventServiceProvider
+    EventServiceProvider,
+    Network
   ]
 })
 export class AppModule {}
