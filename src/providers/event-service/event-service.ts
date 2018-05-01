@@ -10,13 +10,13 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class EventServiceProvider {
 
-  apiUrl = 'http://localhost:3000/api';
+  apiUrl = 'http://localhost:3000/api/event/';
 
   constructor(public http: HttpClient) {}
 
   getEvents() {
     return new Promise(resolve => {
-      this.http.get(this.apiUrl+'/event').subscribe(data => {
+      this.http.get(this.apiUrl).subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);
@@ -26,7 +26,7 @@ export class EventServiceProvider {
 
   getEvent(eventId: number) {
     return new Promise(resolve => {
-      this.http.get(this.apiUrl+'/event/'+eventId).subscribe(data => {
+      this.http.get(this.apiUrl+eventId).subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);
@@ -36,7 +36,7 @@ export class EventServiceProvider {
 
   addEvent(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl+'/event', JSON.stringify(data), {
+      this.http.post(this.apiUrl, JSON.stringify(data), {
         headers: new HttpHeaders().set('Content-Type', 'application/json')
       })
         .subscribe(res => {

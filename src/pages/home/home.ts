@@ -42,9 +42,10 @@ export class HomePage {
   /**
    * Navigate to the detail page for this item.
    */
-  openEvent(eventId: number) {
+  openEvent(eventId: number, eventName: string) {
     this.navCtrl.push('AboutEventPage', {
-      eventId: eventId
+      eventId: eventId,
+      eventName: eventName,
     });
   }
 

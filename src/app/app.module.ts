@@ -12,6 +12,10 @@ import { EventServiceProvider } from '../providers/event-service/event-service';
 
 import { Network } from '@ionic-native/network';
 
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+import { PostServiceProvider } from '../providers/post-service/post-service';
+const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
+
 @NgModule({
   declarations: [
     MyApp
@@ -20,6 +24,7 @@ import { Network } from '@ionic-native/network';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
+    SocketIoModule.forRoot(config)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -31,7 +36,8 @@ import { Network } from '@ionic-native/network';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserServiceProvider,
     EventServiceProvider,
-    Network
+    Network,
+    PostServiceProvider
   ]
 })
 export class AppModule {}

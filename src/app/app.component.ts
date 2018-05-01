@@ -28,22 +28,6 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-
-      this.network.onConnect().subscribe(() => {
-        setTimeout(() => {
-          if (this.network.type === 'wifi') {
-            if (localStorage.getItem("addEventQuery") !== null) {
-              this.eventServiceProvider.addEvent(localStorage.getItem("addEventQuery")).then((result) => {
-                console.log(result);
-              }, (err) => {
-                console.log(err);
-              });
-              localStorage.removeItem("addEventQuery");
-            }
-          }
-        }, 3000);
-      });
-
     });
   }
 

@@ -1,3 +1,31 @@
 page-aboutevent {
+  .post {
+    padding: 10px !important;
+    transition: all 250ms ease-in-out !important;
+    border-radius: 10px !important;
+    margin-bottom: 4px !important;
+  }
 
+  .post_message {
+    background: #dcdcdc !important;
+    color: #000 !important;
+  }
+  .time {
+    color: #afafaf;
+    float: right;
+    font-size: small;
+  }
+  .message_row {
+    background-color: #fff;
+  }
+
+  .icon {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    height: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    display: block;
+  }
 }
