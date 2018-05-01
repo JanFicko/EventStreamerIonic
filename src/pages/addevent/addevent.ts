@@ -37,16 +37,11 @@ export class AddEventPage {
   }
 
   addEvent() {
-    if (this.network.type != "none") {
-      // Listener in app.component.ts for when internet connection come back
-      window.localStorage.setItem("addEventQuery", JSON.stringify(this.form.value))
-    } else {
-      this.eventServiceProvider.addEvent(this.form.value).then((result) => {
-        console.log(result);
-      }, (err) => {
-        console.log(err);
-      });
-    }
+    this.eventServiceProvider.addEvent(this.form.value).then((result) => {
+      console.log(result);
+    }, (err) => {
+      console.log(err);
+    });
   }
   /**
    * The user cancelled, so we dismiss without sending data back.
