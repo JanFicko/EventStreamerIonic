@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar padding>
-    <ion-title>{{ eventName}}</ion-title>
+    <ion-title>{{eventName}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -18,7 +18,8 @@
 
       <ion-col col-9 class="post" [ngClass]="'post_message'">
         <div class="time">[{{elem.timeCreated}}]:</div>
-        <span>{{elem.comment}}</span>
+        <span *ngIf="elem.comment">{{elem.comment}}</span>
+        <img *ngIf="elem.image" src="http://localhost:3000/uploads/{{eventId}}/{{elem.image}}" />
       </ion-col>
 
     </ion-row>
