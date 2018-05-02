@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PostServiceProvider } from '../../providers/post-service/post-service';
 import { Socket } from 'ng-socket-io';
 import { Observable } from 'rxjs/Observable';
-import {Post} from "../../models/post";
 
 /**
  * Generated class for the AbouteventPage page.
@@ -45,6 +44,7 @@ export class AboutEventPage {
       .then(data => {
         if(Object.keys(data).length != 0){
           Object.keys(data).forEach(key => {
+            console.log(data[key]);
             this.posts.push(data[key]);
           });
         }

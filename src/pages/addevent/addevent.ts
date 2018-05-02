@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IonicPage, NavController, ViewController } from 'ionic-angular';
 import { EventServiceProvider } from '../../providers/event-service/event-service';
-import { Network } from '@ionic-native/network';
 
 /**
  * Generated class for the AddeventPage page.
@@ -24,7 +23,7 @@ export class AddEventPage {
   form: FormGroup;
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, formBuilder: FormBuilder,
-              public eventServiceProvider: EventServiceProvider, private network: Network) {
+              public eventServiceProvider: EventServiceProvider) {
 
     this.form = formBuilder.group({
       name: [''],
