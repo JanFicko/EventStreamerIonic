@@ -1,6 +1,6 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Md5} from 'ts-md5/dist/md5';
+import {CryptoJS} from "crypto-js";
 
 /*
   Generated class for the UserServiceProvider provider.
@@ -17,9 +17,9 @@ export class UserServiceProvider {
 
 
   login(email: string, password: string) {
-    let hashedPassword = Md5.hashStr(password);
+    let encryptedPassword = CryptoJS.AES.encrypt(password, email);
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl, JSON.stringify( {"email": email, "password": hashedPassword}), {
+      this.http.post(this.apiUrl, JSON.stringify( {"email": email, "password": encryptedPassword}), {
         headers: new HttpHeaders().set('Content-Type', 'application/json')
       })
         .subscribe(res => {
