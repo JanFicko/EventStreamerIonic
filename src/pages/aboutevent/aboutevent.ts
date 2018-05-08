@@ -29,8 +29,8 @@ export class AboutEventPage {
               public postServiceProvider: PostServiceProvider, private socket: Socket) {
     this.socket.connect();
 
-    this.eventId = navParams.get('eventId');
-    this.eventName = navParams.get('eventName');
+    this.eventId = navParams.get('id_dogodek');
+    this.eventName = navParams.get('naziv');
 
     this.getPosts();
 

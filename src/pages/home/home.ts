@@ -34,7 +34,6 @@ export class HomePage {
     let addModal = this.modalCtrl.create('AddEventPage');
     addModal.onDidDismiss(() => {
       this.loadEvents();
-      console.log(window.localStorage.getItem("test"))
     });
     addModal.present();
   }
