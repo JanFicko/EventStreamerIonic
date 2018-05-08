@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Network } from '@ionic-native/network';
 
 import { Tab1Root } from '../pages/pages';
 import {EventServiceProvider} from "../providers/event-service/event-service";
@@ -21,7 +20,7 @@ export class MyApp {
     { title: 'About Event', component: 'AboutEventPage' }
   ];
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private network: Network,
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
               public eventServiceProvider: EventServiceProvider,) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
