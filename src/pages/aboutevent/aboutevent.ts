@@ -22,7 +22,7 @@ export class AboutEventPage {
   posts = [];
   comment = '';
 
-  eventId: number;
+  eventId: string;
   eventName: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,

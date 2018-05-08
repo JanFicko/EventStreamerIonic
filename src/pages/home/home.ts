@@ -34,7 +34,7 @@ export class HomePage {
   /**
    * Navigate to the detail page for this item.
    */
-  openEvent(eventId: number, eventName: string) {
+  openEvent(eventId: string, eventName: string) {
     this.navCtrl.push('AboutEventPage', {
       eventId: eventId,
       eventName: eventName,

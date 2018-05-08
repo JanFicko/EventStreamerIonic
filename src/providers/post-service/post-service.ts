@@ -14,9 +14,9 @@ export class PostServiceProvider {
 
   constructor(public http: HttpClient) {}
 
-  sendPost(eventId: number, comment: string){
+  sendPost(eventId: string, comment: string){
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl, JSON.stringify( {"comment": comment, "eventId": eventId}), {
+      this.http.post(this.apiUrl, JSON.stringify( {"komentar": comment, "id_dogodek": eventId}), {
         headers: new HttpHeaders().set('Content-Type', 'application/json')
       })
         .subscribe(res => {
@@ -27,10 +27,10 @@ export class PostServiceProvider {
     });
   }
 
-  sendImage(eventId: number) {
+  sendImage(eventId: string) {
     // Ko pošiljaš sliko ji moraš določit key "image"
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl, JSON.stringify( {"eventId": eventId}))
+      this.http.post(this.apiUrl, JSON.stringify( {"id_dogodek": eventId}))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -39,7 +39,7 @@ export class PostServiceProvider {
     });
   }
 
-  getPosts(eventId: number) {
+  getPosts(eventId: string) {
     return new Promise(resolve => {
       this.http.get(this.apiUrl+eventId).subscribe(data => {
         resolve(data);
