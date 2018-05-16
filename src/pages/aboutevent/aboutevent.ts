@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PostServiceProvider } from '../../providers/post-service/post-service';
 import { Socket } from 'ng-socket-io';
 import { Observable } from 'rxjs/Observable';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 /**
  * Generated class for the AbouteventPage page.
@@ -24,8 +25,16 @@ export class AboutEventPage {
 
   eventId: string;
   eventName: string;
+  image: FormData;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  options: CameraOptions = {
+    quality: 100,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE
+  };
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera,
               public postServiceProvider: PostServiceProvider, private socket: Socket) {
     this.socket.connect();
 
@@ -71,6 +80,23 @@ export class AboutEventPage {
 
   ionViewWillLeave() {
     this.socket.disconnect();
+  }
+
+  sendImage(){
+    this.camera.getPicture(this.options).then((imageData) => {
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
+      let formData = new FormData();
+      formData.append("image", imageData);
+
+      this.image = formData;
+      this.sendFormData();
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  sendFormData(){
+    this.postServiceProvider.sendImage(this.eventId, this.image);
   }
 
 }

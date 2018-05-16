@@ -27,10 +27,10 @@ export class PostServiceProvider {
     });
   }
 
-  sendImage(eventId: string) {
+  sendImage(eventId: string, image: FormData) {
     // Ko pošiljaš sliko ji moraš določit key "image"
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl, JSON.stringify( {"id_dogodek": eventId}))
+      this.http.post(this.apiUrl, JSON.stringify( {"id_dogodek": eventId, "image": image}))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
