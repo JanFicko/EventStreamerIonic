@@ -1,0 +1,69 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Event Streamer</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <div class="login-box" *ngIf="!loggedIn">
+    <form (ngSubmit)="register()" #registerForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+
+            <ion-item>
+              <ion-input type="text" placeholder="name" name="name" [(ngModel)]="user.name" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="text" placeholder="surname" name="surname" [(ngModel)]="user.surname" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="text" placeholder="email" name="email" [(ngModel)]="user.email" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="password" placeholder="password" name="password"
+                         [(ngModel)]="user.password" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="password" placeholder="confirmPassword" name="confirmPassword"
+                         [(ngModel)]="confirmPassword" required></ion-input>
+            </ion-item>
+
+            <div *ngIf="passwordErrorMessage">
+              <span>Gesli se ne ujemata</span>
+            </div>
+
+            <ion-item>
+              <ion-label>Novinar</ion-label>
+              <ion-checkbox name="type" [(ngModel)]="user.type"></ion-checkbox>
+            </ion-item>
+
+            <ion-item *ngIf="user.type">
+              <ion-input type="text" placeholder="media" name="media" [(ngModel)]="user.media"></ion-input>
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Login</button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+  </div>
+</ion-content>
