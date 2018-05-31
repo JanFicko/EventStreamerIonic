@@ -3,14 +3,14 @@ import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { Tab1Root } from '../pages/pages';
 import {EventServiceProvider} from "../providers/event-service/event-service";
+import {TabsPage} from "../pages/tabs/tabs";
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage = Tab1Root;
+  rootPage = TabsPage;
 
   @ViewChild(Nav) nav: Nav;
 
