@@ -19,7 +19,7 @@
       <ion-col col-9 class="post" [ngClass]="'post_message'">
         <!--<div class="time">[{{elem.timeCreated}}]:</div>-->
         <span *ngIf="elem.komentar">{{elem.komentar}}</span>
-        <img *ngIf="elem.image" src="http://localhost:3000/uploads/{{eventId}}/{{elem.image}}" />
+        <img *ngIf="elem.slika" src="http://localhost:3000/uploads/{{eventId}}/{{elem.slika}}" />
       </ion-col>
 
     </ion-row>
