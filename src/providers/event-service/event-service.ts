@@ -11,7 +11,7 @@ import { Injectable } from '@angular/core';
 export class EventServiceProvider {
 
   storage = window.localStorage;
-  apiUrl = 'http://localhost:3000/api/event/';
+  apiUrl = 'http://192.168.0.102:3000/api/event/';
   markers: any;
   location: any;
 
@@ -25,6 +25,7 @@ export class EventServiceProvider {
       }, err => {
         console.log(err);
       });
+
     });
   }
 
@@ -60,10 +61,9 @@ export class EventServiceProvider {
 
     for (let i = 0; i < events.length; i++) {
       markers = markers.concat({
-        position:{
-          lat: events[i].lokacija[0].latitude,
-          lng: events[i].lokacija[0].longitude
-        },
+        id: events[i]._id,
+        lat: events[i].lokacija[0].latitude,
+        lng: events[i].lokacija[0].longitude,
         title: events[i].naziv
       });
     }
