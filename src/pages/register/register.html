@@ -1,0 +1,59 @@
+<ion-content>
+  <div class="login-box" *ngIf="!loggedIn">
+    <form (ngSubmit)="testPass()" #registerForm="ngForm" [formGroup]="registrationForm" >
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+
+            <ion-item>
+              <ion-input type="text" placeholder="name" name="name" formControlName="name" required
+                         [class.input-invalid]="formErrors.name" class="invalid" value="{{user.name}}">
+              </ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="text" placeholder="surname" name="surname" formControlName="surname" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="text" placeholder="email" name="email" formControlName="email" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="password" placeholder="password" name="password"
+                         formControlName="password" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="password" placeholder="confirmPassword" name="confirmPassword"
+                         formControlName="password2" required></ion-input>
+            </ion-item>
+
+            <div *ngIf="passwordErrorMessage">
+              <span>Gesli se ne ujemata</span>
+            </div>
+
+            <ion-item>
+              <ion-label>Novinar</ion-label>
+              <ion-checkbox name="type" formControlName="type"></ion-checkbox>
+            </ion-item>
+
+            <ion-item *ngIf="registerForm.value.type">
+              <ion-input type="text" placeholder="media" name="media" formControlName="media"></ion-input>
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Register</button>
+        </ion-col>
+      </ion-row>
+      <div *ngIf="formErrors.email">
+        Nekaj ne štima
+      </div>
+    </form>
+  </div>
+</ion-content>

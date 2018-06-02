@@ -1,2 +1,2 @@
 
-export const Tab1Root = 'LoginPage';
+export const Tab1Root = 'HomePage';

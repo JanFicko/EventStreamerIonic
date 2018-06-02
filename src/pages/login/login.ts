@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ModalController } from 'ionic-angular';
-import {LoginService} from "./login.service";
-import {User} from "./User";
+import {LoginService} from "../../providers/login-services/login.service";
+import {User} from "../shared/User";
+import {UserResponse} from "../shared/UserResponse";
+import md5 from 'md5';
 
 @IonicPage()
 @Component({
@@ -11,10 +13,12 @@ import {User} from "./User";
 })
 export class LoginPage {
 
-  public user: User = new User(null, null, null, null, null, null);
+  public user: User = new User(null, null, null, null,null, null, null);
   public loggedIn: boolean = false;
   confirmPassword: string;
   passwordErrorMessage: string = null;
+  email: string = null;
+  password: string = null;
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public loginService: LoginService) {
 
@@ -32,38 +36,42 @@ export class LoginPage {
 
   }
 
-  register() {
+  login() {
 
-    //https://devdactic.com/login-ionic-2/
-
-    if(this.user.password !== this.confirmPassword) {
-      this.passwordErrorMessage = "Gesli se ne ujemata";
-    }
-    else {
-      this.passwordErrorMessage = null;
-      let user = {
-        ime: this.user.name,
-        priimek: this.user.surname,
-        geslo: this.user.password,
-        email: this.user.email,
-        tip: this.user.type ? 'novinar' : 'uporabnik',
-        medij: this.user.media ? this.user.media : ''
+    let user = {email: this.email, geslo: md5(this.password)};
+    this.loginService.login(user).then((res: UserResponse) => {
+      if(res.tip.toLowerCase()=="uporabnik") {
+        this.navCtrl.push('HomePage').then(() => {
+          const index = this.navCtrl.getActive().index;
+          this.navCtrl.remove(0, index);
+          localStorage.setItem("loggedInUser", JSON.stringify(res));
+        });
       }
+      else if(res.tip.toLowerCase()=="novinar"){
+        this.navCtrl.push('HomePage').then(() => {
+          const index = this.navCtrl.getActive().index;
+          this.navCtrl.remove(0, index);
+          localStorage.setItem("loggedInUser", JSON.stringify(res));
+        });
+        //this.navCtrl.setRoot('HomePage');
+      }
+    }, (err) => {
+      console.log(err);
+    });
 
-      this.loginService.register(user).then((loggedIn) => {
-        if (loggedIn) {
-          localStorage.setItem("loggedInUser", JSON.stringify(user.email));
-          this.redirectHome();
-        }
-      }, (err) => {
-        console.log(err);
-      });
-    }
+  }
 
+  validateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
   }
 
   redirectHome() {
     this.navCtrl.push('HomePage');
+  }
+
+  goToRegistration(){
+    this.navCtrl.push('RegisterPage');
   }
 
 }

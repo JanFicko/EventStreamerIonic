@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { LoginPage } from './login';
-import {LoginService} from "./login.service";
+import {LoginService} from "../../providers/login-services/login.service";
 
 @NgModule({
   declarations: [
