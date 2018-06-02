@@ -17,7 +17,7 @@
     <ion-row *ngFor="let elem of posts">
 
       <ion-col col-9 class="post" [ngClass]="'post_message'">
-        <!--<div class="time">[{{elem.timeCreated}}]:</div>-->
+        <div class="time">[{{elem.datum}}]:</div>
         <span *ngIf="elem.komentar">{{elem.komentar}}</span>
         <img *ngIf="elem.slika" src="http://localhost:3000/uploads/{{eventId}}/{{elem.slika}}" />
       </ion-col>

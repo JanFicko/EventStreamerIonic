@@ -35,6 +35,7 @@ export class AboutEventPage {
     this.getPosts();
 
     this.getMessages().subscribe(post => {
+      console.log("pushed");
       this.posts.push(post);
     });
   }
@@ -44,7 +45,6 @@ export class AboutEventPage {
       .then(data => {
         if(Object.keys(data).length != 0){
           Object.keys(data).forEach(key => {
-            console.log(data[key]);
             this.posts.push(data[key]);
           });
         }
@@ -62,8 +62,7 @@ export class AboutEventPage {
   getMessages() {
     let observable = new Observable(observer => {
       this.socket.on('post', (data) => {
-        console.log(data);
-        observer.next(data);
+        observer.next(data.objava[Object.keys(data.objava).length - 1 ]);
       });
     });
     return observable;
