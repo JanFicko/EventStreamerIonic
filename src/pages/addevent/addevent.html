@@ -31,9 +31,9 @@
 
 <ion-content>
 
-  <h1><span class="top_margin left_margin">Dodajte nov dogodek</span></h1>
+  <h1 class="top_margin left_margin"><span>Dodajte nov dogodek</span></h1>
 
-  <h6><span class="top_margin left_margin">Ustvarili boste nov dogodek na katerem boste lahko v realnem času objavljali posodobitve dogajanja</span></h6>
+  <h6 class="top_margin left_margin"><span>Ustvarili boste nov dogodek na katerem boste lahko v realnem času objavljali posodobitve dogajanja</span></h6>
 
 
   <form *ngIf="form" [formGroup]="form" (ngSubmit)="addEvent()">
@@ -48,9 +48,18 @@
         <ion-label>Datum</ion-label>
         <ion-datetime displayFormat="MMM DD, YYYY HH:mm" formControlName="datum"></ion-datetime>
       </ion-item>
-      <div class="center top_margin">
-        <button ion-button default="true" outline="true" color="accent">Izberi kategorije</button>
-      </div>
+
+      <ion-item class="top_margin">
+        <ion-label>Izberite kategorije</ion-label>
+        <ion-select multiple="true" formControlName="kategorija">
+          <ion-option>Novice</ion-option>
+          <ion-option>Šport</ion-option>
+          <ion-option>Kultura</ion-option>
+          <ion-option>Zabava</ion-option>
+          <ion-option>Politika</ion-option>
+        </ion-select>
+      </ion-item>
+
       <div class="center">
         <button ion-button default="true" outline="true" color="accent">Izberi lokacijo</button>
       </div>

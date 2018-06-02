@@ -19,7 +19,7 @@ import { EventServiceProvider } from '../../providers/event-service/event-servic
 export class AddEventPage {
   isReadyToSave: boolean;
 
-  event = {naziv: "", opis: "", datum:0, id_uporabnik: ""};
+  event = {naziv: "", opis: "", datum:0, id_uporabnik: "", kategorija: []};
   form: FormGroup;
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, formBuilder: FormBuilder,
@@ -29,6 +29,7 @@ export class AddEventPage {
       naziv: [''],
       opis: [''],
       datum: 0,
+      kategorija: [],
       userId: ['']
     });
 
