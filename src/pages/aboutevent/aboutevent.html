@@ -6,17 +6,43 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>About</ion-title>
+  <ion-navbar padding>
+    <ion-title>{{eventName}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
-  <h2>{{event?.name}}</h2>
-  <h2>Event id:{{event?.eventId}}</h2>
-  <h3>Created: {{event?.timeCreated}}</h3>
-  <h3>Updated: {{event?.timeUpdated}}</h3>
-  <h3>User id: {{event?.userId}}</h3>
+  <ion-grid>
+    <ion-row *ngFor="let elem of posts">
+
+      <ion-col col-9 class="post" [ngClass]="'post_message'">
+        <div class="time">[{{elem.datum}}]:</div>
+        <span *ngIf="elem.komentar">{{elem.komentar}}</span>
+        <img *ngIf="elem.slika" src="http://localhost:3000/uploads/{{eventId}}/{{elem.slika}}" />
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-row class="message_row">
+      <ion-col col-8>
+        <ion-item no-lines>
+          <ion-input type="text" placeholder="Message" [(ngModel)]="comment"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-2>
+        <button ion-button clear color="primary" (click)="sendPost()" [disabled]="comment === ''">
+          Send
+        </button>
+      </ion-col>
+      <ion-col col-2>
+        <ion-icon class="icon" name="md-camera" (click)="sendImage()" color="primary" showWhen="core,ios,android,windows"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

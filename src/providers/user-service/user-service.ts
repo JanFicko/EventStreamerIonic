@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {CryptoJS} from "crypto-js";
 
 /*
   Generated class for the UserServiceProvider provider.
@@ -10,9 +11,24 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class UserServiceProvider {
 
-  apiUrl = 'http://localhost:3000/api';
+  apiUrl = 'http://localhost:3000/api/user';
 
   constructor(public http: HttpClient) {}
+
+
+  login(email: string, password: string) {
+    let encryptedPassword = CryptoJS.AES.encrypt(password, email);
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl, JSON.stringify( {"email": email, "password": encryptedPassword}), {
+        headers: new HttpHeaders().set('Content-Type', 'application/json')
+      })
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
 
   getUsers() {
     return new Promise(resolve => {

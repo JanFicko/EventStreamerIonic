@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IonicPage, NavController, ViewController } from 'ionic-angular';
 import { EventServiceProvider } from '../../providers/event-service/event-service';
-import { Network } from '@ionic-native/network';
 
 /**
  * Generated class for the AddeventPage page.
@@ -20,14 +19,15 @@ import { Network } from '@ionic-native/network';
 export class AddEventPage {
   isReadyToSave: boolean;
 
-  event = {name: "", userId: ""};
+  event = {naziv: "", opis: "", userId: ""};
   form: FormGroup;
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, formBuilder: FormBuilder,
-              public eventServiceProvider: EventServiceProvider, private network: Network) {
+              public eventServiceProvider: EventServiceProvider) {
 
     this.form = formBuilder.group({
-      name: [''],
+      naziv: [''],
+      opis: [''],
       userId: ['']
     });
 
@@ -37,16 +37,11 @@ export class AddEventPage {
   }
 
   addEvent() {
-    if (this.network.type != "none") {
-      // Listener in app.component.ts for when internet connection come back
-      window.localStorage.setItem("addEventQuery", JSON.stringify(this.form.value))
-    } else {
-      this.eventServiceProvider.addEvent(this.form.value).then((result) => {
-        console.log(result);
-      }, (err) => {
-        console.log(err);
-      });
-    }
+    this.eventServiceProvider.addEvent(this.form.value).then((result) => {
+      console.log(result);
+    }, (err) => {
+      console.log(err);
+    });
   }
   /**
    * The user cancelled, so we dismiss without sending data back.

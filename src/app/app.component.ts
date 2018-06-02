@@ -2,16 +2,15 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Network } from '@ionic-native/network';
 
-import { Tab1Root } from '../pages/pages';
 import {EventServiceProvider} from "../providers/event-service/event-service";
+import {TabsPage} from "../pages/tabs/tabs";
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage = Tab1Root;
+  rootPage = TabsPage;
 
   @ViewChild(Nav) nav: Nav;
 
@@ -21,29 +20,13 @@ export class MyApp {
     { title: 'About Event', component: 'AboutEventPage' }
   ];
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private network: Network,
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
               public eventServiceProvider: EventServiceProvider,) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-
-      this.network.onConnect().subscribe(() => {
-        setTimeout(() => {
-          if (this.network.type === 'wifi') {
-            if (localStorage.getItem("addEventQuery") !== null) {
-              this.eventServiceProvider.addEvent(localStorage.getItem("addEventQuery")).then((result) => {
-                console.log(result);
-              }, (err) => {
-                console.log(err);
-              });
-              localStorage.removeItem("addEventQuery");
-            }
-          }
-        }, 3000);
-      });
-
     });
   }
 
