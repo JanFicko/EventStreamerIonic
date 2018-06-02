@@ -18,8 +18,6 @@ import { PostServiceProvider } from '../providers/post-service/post-service';
 import {TabsPage} from "../pages/tabs/tabs";
 import {HomePage} from "../pages/home/home";
 import {DashboardPage} from "../pages/dashboard/dashboard";
-import {AddEventPage} from "../pages/addevent/addevent";
-import {AboutEventPage} from "../pages/aboutevent/aboutevent";
 const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 
 @NgModule({
@@ -27,9 +25,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
     MyApp,
     TabsPage,
     HomePage,
-    DashboardPage,
-    AddEventPage,
-    AboutEventPage
+    DashboardPage
   ],
   imports: [
     BrowserModule,
@@ -42,9 +38,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
     MyApp,
     TabsPage,
     HomePage,
-    DashboardPage,
-    AddEventPage,
-    AboutEventPage
+    DashboardPage
   ],
   providers: [
     StatusBar,
