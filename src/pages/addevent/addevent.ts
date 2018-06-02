@@ -19,14 +19,15 @@ import { EventServiceProvider } from '../../providers/event-service/event-servic
 export class AddEventPage {
   isReadyToSave: boolean;
 
-  event = {name: "", opis: "", userId: ""};
+  event = {naziv: "", opis: "", userId: ""};
   form: FormGroup;
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, formBuilder: FormBuilder,
               public eventServiceProvider: EventServiceProvider) {
 
     this.form = formBuilder.group({
-      name: [''],
+      naziv: [''],
+      opis: [''],
       userId: ['']
     });
 
