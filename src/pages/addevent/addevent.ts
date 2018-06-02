@@ -19,7 +19,7 @@ import { EventServiceProvider } from '../../providers/event-service/event-servic
 export class AddEventPage {
   isReadyToSave: boolean;
 
-  event = {naziv: "", opis: "", userId: ""};
+  event = {naziv: "", opis: "", datum:0, id_uporabnik: ""};
   form: FormGroup;
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, formBuilder: FormBuilder,
@@ -28,10 +28,13 @@ export class AddEventPage {
     this.form = formBuilder.group({
       naziv: [''],
       opis: [''],
+      datum: 0,
       userId: ['']
     });
 
     this.form.valueChanges.subscribe((v) => {
+      this.form.value.datum = new Date(this.form.value.datum).getTime();
+      console.log(this.form.value) ;
       this.isReadyToSave = this.form.valid;
     });
   }
@@ -43,6 +46,8 @@ export class AddEventPage {
       console.log(err);
     });
   }
+
+
   /**
    * The user cancelled, so we dismiss without sending data back.
    */
