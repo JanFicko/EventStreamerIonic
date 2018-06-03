@@ -43,13 +43,23 @@ export class HomePage {
   }
 
   search(event){
-    console.log(event);
     if(event.inputType == 'insertText'){
       this.query += event.data;
     }else if(event.inputType == 'deleteContentBackward'){
       this.query = this.query.substring(0, this.query.length-1);
     }
+    console.log(this.query);
+    this.findEventByQuery();
 
+  }
+
+  onCancel(event){
+    this.query = "";
+    console.log(this.query+" -> cancel");
+    this.findEventByQuery();
+  }
+
+  findEventByQuery(){
     this.eventServiceProvider.getEventByQuery(this.query)
       .then(data => {
         this.events = data;
