@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 /**
  * Generated class for the DashboardPage page.
  *
@@ -7,87 +8,131 @@ import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
-import {GoogleMaps, GoogleMap, GoogleMapsEvent, Marker} from '@ionic-native/google-maps';
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  Marker,
+  ILatLng,
+  Polygon,
+  MarkerCluster, GoogleMapOptions
+} from '@ionic-native/google-maps';
 import {EventServiceProvider} from "../../providers/event-service/event-service";
 
 @IonicPage()
 @Component({
-  providers: [EventServiceProvider],
   selector: 'page-dashboard',
   templateUrl: 'dashboard.html',
 })
 
 export class DashboardPage {
+  storage = window.localStorage;
   map: GoogleMap;
   public events: any;
   markers: any[] = [];
 
-  constructor(public navCtrl: NavController, public eventServiceProvider: EventServiceProvider,
+  mapOptions: GoogleMapOptions = {
+    camera: {
+      target: {
+        lat: 46.56266249999999,
+        lng: 15.140457031249994
+      },
+      zoom: 7
+    }
+  };
+
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public eventServiceProvider: EventServiceProvider,
               public navParams: NavParams) {
 
   }
 
   ionViewDidLoad() {
     this.loadMap();
-    this.getPositions();
+    this.addMarkers();
   }
 
   loadMap() {
-    this.map = GoogleMaps.create('map_canvas');
-    console.log("NOT");
+    this.map = GoogleMaps.create('map_canvas', this.mapOptions);
   }
 
-  getPositions(){
-    this.eventServiceProvider.getEvents().then(data => {
-      this.events = data;
+  addMarkers() {
+    let markersData = JSON.parse(this.storage.getItem("markers"));
+    this.markers = markersData;
 
-      for (let i = 0; i < this.events.length; i++) {
-        this.markers = this.markers.concat({
-          longitude: this.events[i].lokacija[0].longitude,
-          latitude: this.events[i].lokacija[0].latitude,
-          title: this.events[i].naziv
-        });
-      }
+    let markers = [];
 
-      const positionsJSON = JSON.parse(JSON.stringify(this.markers));
-      console.log(positionsJSON);
+    for(let i=0; i<markersData.length; i++){
 
-      this.addMarkers();
-
-    }).catch(err => {
-      console.log(err);
-    });
-  }
-
-  addMarkers(){
-    for(let i=0; i<this.markers.length; i++){
-      console.log(this.markers[i].longitude+" -> TITLE");
-
-      this.map.addMarkerSync({
+      markers = markers.concat({
         position: {
-          lat: this.markers[i].latitude,
-          lng: this.markers[i].longitude
+          lat: markersData[i].lat,
+          lng: markersData[i].lng
         },
-        title: this.markers[i].title,
-        disableAutoPan: true
+        title: markersData[i].title,
+        disableAutoPan: true,
+        icon: 'blue',
+        animation: 'DROP',
       });
     }
 
-    this.map.addMarker({
-      position: {
-        lat: 43.0741804,
-        lng: -89.381
-      },
-      title: "A",
-      disableAutoPan: true
-    }).then(this.onMarkerAdded);
+    this.map.addMarkerCluster({
+      markers: markers,
+      icons: [
+        {
+          min: 2, max: 3,
+          url: "../../../cluster_1.png",
+          label: { color: "white" }
+        },
+        {
+          min: 4,
+          url: "../../../cluster_2.png",
+          label: { color: "white" }
+        }
+      ]
+    }).then((markerCluster: MarkerCluster) => {
 
-  }
+      markerCluster.on(GoogleMapsEvent.MARKER_CLICK).subscribe((params) => {
+        let marker: Marker = params[1];
+        let markerInfo = this.markers.find(item => item.title == marker.getTitle());
 
-  onMarkerAdded(marker: Marker) {
-    marker.one(GoogleMapsEvent.MARKER_CLICK).then(() => {
-      alert("Marker" + marker.getTitle() + " is clicked");
+        this.showAlert(marker, markerInfo);
+
+        marker.setTitle(marker.get("name"));
+        marker.setSnippet(marker.get("address"));
+        marker.showInfoWindow();
+      });
+
     });
   }
+
+  showAlert(marker, markerInfo) {
+
+    let alert = this.alertCtrl.create({
+      title: marker.getTitle(),
+      message: 'Do you want to visit this event?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Visit',
+          handler: () => {
+            this.navCtrl.push('AboutEventPage', {
+              eventId: markerInfo.id,
+              eventName: marker.getTitle(),
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+
+
 
 }

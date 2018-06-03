@@ -1,4 +1,5 @@
 {
+  "main": "dist/md5.js",
   "name": "EventStreamerIonic",
   "version": "0.0.1",
   "author": "Ionic Framework",

@@ -14,6 +14,14 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-searchbar
+    [(ngModel)]="search_event"
+    [showCancelButton]="false"
+    (ionInput)="search($event)"
+    (ionClear)="onCancel($event)">
+  </ion-searchbar>
+
   <ion-list inset>
     <ion-item *ngIf="events?.length > 0">
         <ion-item-sliding *ngFor="let event of events">

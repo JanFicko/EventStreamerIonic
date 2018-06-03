@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class PostServiceProvider {
 
-  apiUrl = 'http://localhost:3000/api/post/';
+  apiUrl = 'http://192.168.0.106:3000/api/post/';
 
   constructor(public http: HttpClient) {}
 
