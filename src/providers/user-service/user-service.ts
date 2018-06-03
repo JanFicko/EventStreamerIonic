@@ -11,7 +11,7 @@ import {CryptoJS} from "crypto-js";
 @Injectable()
 export class UserServiceProvider {
 
-  apiUrl = 'http://192.168.0.102:3000/api/user';
+  apiUrl = 'http://localhost:3000/api/user';
 
   constructor(public http: HttpClient) {}
 

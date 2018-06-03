@@ -11,7 +11,7 @@ import { Injectable } from '@angular/core';
 export class EventServiceProvider {
 
   storage = window.localStorage;
-  apiUrl = 'http://192.168.0.106:3000/api/event/';
+  apiUrl = 'http://localhost:3000/api/event/';
   markers: any;
   location: any;
 
