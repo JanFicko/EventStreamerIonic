@@ -11,7 +11,7 @@ import { Injectable } from '@angular/core';
 export class EventServiceProvider {
 
   storage = window.localStorage;
-  apiUrl = 'http://192.168.0.102:3000/api/event/';
+  apiUrl = 'http://192.168.0.106:3000/api/event/';
   markers: any;
   location: any;
 
@@ -32,6 +32,16 @@ export class EventServiceProvider {
   getEvent(eventId: number) {
     return new Promise(resolve => {
       this.http.get(this.apiUrl+eventId).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
+  getEventByQuery(query) {
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl+query).subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);
