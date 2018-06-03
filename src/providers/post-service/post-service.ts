@@ -31,9 +31,9 @@ export class PostServiceProvider {
    * BUG?
    * https://github.com/angular/angular/issues/13241
     */
-  sendImage(eventId: string, image: FormData) {
+  sendImage(formData: FormData) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl, image)
+      this.http.post(this.apiUrl, formData)
         .subscribe(res => {
           resolve(res);
         }, (err) => {

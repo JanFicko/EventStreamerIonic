@@ -3,11 +3,12 @@
   <ion-navbar>
     <ion-title>Event Streamer</ion-title>
 
-    <ion-buttons end>
-      <button ion-button icon-only (click)="addEvent()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-buttons>
+
+      <ion-buttons end *ngIf="user && user.tip == 'Novinar'">
+        <button ion-button icon-only (click)="addEvent()">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
 
 </ion-header>

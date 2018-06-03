@@ -11,9 +11,11 @@ import { EventServiceProvider } from '../../providers/event-service/event-servic
 export class HomePage {
 
   public events: any;
+  public user: any;
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public eventServiceProvider: EventServiceProvider) {
     this.loadEvents();
+    this.user = JSON.parse(localStorage.getItem("loggedInUser"));
   }
 
   loadEvents(){

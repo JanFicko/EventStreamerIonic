@@ -13,6 +13,7 @@
 </ion-header>
 
 <ion-content padding>
+
   <ion-grid>
     <ion-row *ngFor="let elem of posts">
 
@@ -27,7 +28,7 @@
 
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="user && user.tip == 'Novinar'">
   <ion-toolbar>
     <ion-row class="message_row">
       <ion-col col-8>
