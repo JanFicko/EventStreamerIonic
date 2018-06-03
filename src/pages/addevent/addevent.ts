@@ -2,6 +2,11 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IonicPage, NavController, ViewController } from 'ionic-angular';
 import { EventServiceProvider } from '../../providers/event-service/event-service';
+import { GooglePlacesAutocompleteComponentModule } from 'ionic2-google-places-autocomplete';
+
+import { Geolocation } from '@ionic-native/geolocation';
+import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
+import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the AddeventPage page.
@@ -14,23 +19,25 @@ import { EventServiceProvider } from '../../providers/event-service/event-servic
 @Component({
   selector: 'page-addevent',
   templateUrl: 'addevent.html',
-  providers: [EventServiceProvider]
+  providers: [EventServiceProvider, GooglePlacesAutocompleteComponentModule]
 })
 export class AddEventPage {
   isReadyToSave: boolean;
 
-  event = {naziv: "", opis: "", datum:0, id_uporabnik: "", kategorija: []};
+  event = {naziv: "", opis: "", datum:0, id_uporabnik: "", kategorija: [], lokacija: []};
   form: FormGroup;
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, formBuilder: FormBuilder,
-              public eventServiceProvider: EventServiceProvider) {
+              public eventServiceProvider: EventServiceProvider, private nativeGeocoder: NativeGeocoder,
+              private alertCtrl: AlertController) {
 
     this.form = formBuilder.group({
       naziv: [''],
       opis: [''],
       datum: 0,
+      id_uporabnik: "5b1065a39b2800215c913317",
       kategorija: [],
-      userId: ['']
+      lokacija: []
     });
 
     this.form.valueChanges.subscribe((v) => {
@@ -41,6 +48,14 @@ export class AddEventPage {
   }
 
   addEvent() {
+    let categoryArray = [];
+    for (let entry of this.form.value.kategorija) {
+      categoryArray.push({
+        naziv: entry
+      });
+    }
+    this.form.value.kategorija = categoryArray;
+
     this.eventServiceProvider.addEvent(this.form.value).then((result) => {
       console.log(result);
     }, (err) => {
@@ -54,6 +69,14 @@ export class AddEventPage {
    */
   cancel() {
     this.viewCtrl.dismiss();
+  }
+
+  locationName(name){
+    //test[0].description;
+    this.form.value.lokacija = [];
+    this.nativeGeocoder.forwardGeocode(name.description)
+      .then((coordinates: NativeGeocoderForwardResult) => this.form.value.lokacija = coordinates )
+      .catch((error: any) => console.log(error));
   }
 
   /**

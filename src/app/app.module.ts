@@ -18,6 +18,13 @@ import { PostServiceProvider } from '../providers/post-service/post-service';
 import {TabsPage} from "../pages/tabs/tabs";
 import {HomePage} from "../pages/home/home";
 import {DashboardPage} from "../pages/dashboard/dashboard";
+
+import { GooglePlacesAutocompleteComponentModule } from 'ionic2-google-places-autocomplete';
+
+import { Geolocation } from '@ionic-native/geolocation';
+import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
+import { AlertController } from 'ionic-angular';
+
 const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 
 @NgModule({
@@ -31,7 +38,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    GooglePlacesAutocompleteComponentModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -48,7 +56,10 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
     EventServiceProvider,
     Network,
     GoogleMaps,
-    PostServiceProvider
+    PostServiceProvider,
+    Geolocation,
+    NativeGeocoder,
+    AlertController
   ]
 })
 export class AppModule {}
