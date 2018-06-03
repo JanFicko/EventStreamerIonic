@@ -24,6 +24,7 @@ import { GooglePlacesAutocompleteComponentModule } from 'ionic2-google-places-au
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
 import { AlertController } from 'ionic-angular';
+import { FilePath } from '@ionic-native/file-path';
 
 const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 
@@ -59,7 +60,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
     PostServiceProvider,
     Geolocation,
     NativeGeocoder,
-    AlertController
+    AlertController,
+    FilePath
   ]
 })
 export class AppModule {}

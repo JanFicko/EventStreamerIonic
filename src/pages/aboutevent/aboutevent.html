@@ -19,7 +19,7 @@
       <ion-col col-9 class="post" [ngClass]="'post_message'">
         <div class="time">[{{elem.datum}}]:</div>
         <span *ngIf="elem.komentar">{{elem.komentar}}</span>
-        <img *ngIf="elem.slika" src="http://localhost:3000/uploads/{{eventId}}/{{elem.slika}}" />
+        <img *ngIf="elem.slika" src="http://86.58.73.24:3000/uploads/{{eventId}}/{{elem.slika}}" />
       </ion-col>
 
     </ion-row>
@@ -32,7 +32,7 @@
     <ion-row class="message_row">
       <ion-col col-8>
         <ion-item no-lines>
-          <ion-input type="text" placeholder="Message" [(ngModel)]="comment"></ion-input>
+          <ion-input type="text" placeholder="Komentar" [(ngModel)]="comment"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col col-2>
