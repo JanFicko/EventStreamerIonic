@@ -4,12 +4,14 @@ import {RegisterService} from "../../providers/login-services/register.service";
 import {User} from "../shared/User";
 import md5 from 'md5';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UserResponse} from "../shared/UserResponse";
+import {LoginService} from "../../providers/login-services/login.service";
 
 @IonicPage()
 @Component({
   selector: 'page-register',
   templateUrl: 'register.html',
-  providers: []
+  providers: [RegisterService, LoginService]
 })
 export class RegisterPage implements OnInit {
 
@@ -29,9 +31,8 @@ export class RegisterPage implements OnInit {
   };
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public registerService: RegisterService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder, public loginService: LoginService) {
 
-    localStorage.removeItem("loggedInUser");
     let loggedInUser = localStorage.getItem("loggedInUser");
 
     if(loggedInUser) {
@@ -51,50 +52,34 @@ export class RegisterPage implements OnInit {
 
   register() {
 
-    //https://devdactic.com/login-ionic-2/
-
     this.passwordErrorMessage = null;
+
     let user = {
-      ime: this.user.name,
-      priimek: this.user.surname,
-      //geslo: passwordHasher.generate(this.user.password, {algorithm: 'sha256', saltLength:12, iterations: 4}),
-      geslo: md5(this.user.password),
-      email: this.user.email,
-      tip: this.user.type ? 'novinar' : 'uporabnik',
-      medij: this.user.media ? this.user.media : '-'
+      ime: this.registrationForm.value.name,
+      priimek: this.registrationForm.value.surname,
+      geslo: md5(this.registrationForm.value.password),
+      email: this.registrationForm.value.email,
+      tip: this.registrationForm.value.type ? 'novinar' : 'uporabnik',
+      medij: this.registrationForm.value.media ? this.registrationForm.value.media : '-'
     }
 
-    this.registerService.register(user).then((loggedIn) => {
-      if (loggedIn) {
-        localStorage.setItem("loggedInUser", JSON.stringify(user.email));
-        this.redirectHome();
+    this.registerService.register(user).then((registered) => {
+      if (registered) {
+        this.login(user.email, this.registrationForm.value.password);
       }
     }, (err) => {
       console.log(err);
     });
-
-
   }
 
   redirectHome() {
     this.navCtrl.push('HomePage');
   }
 
-  testPass() {
-    var h = "MatejM";
-    for (var i = 0; i < 10; i++) {
-      var h_h = md5(h);
-      console.log(h_h);
-    }
-
-
-    /*
-    var pass = "MatejMarkoGeslo";
-    var pass_h = passwordHasher.generate(pass, {algorithm: 'sha256', saltLength:12, iterations: 4});
-    console.log(passwordHasher.verify(pass, pass_h));
-    console.log(passwordHasher.verify("123", pass_h));
-    */
+  goToCategoriesPage() {
+    this.navCtrl.push('CategoriesPage');
   }
+
 
   buildForm() {
     this.registrationForm = this.fb.group({
@@ -171,7 +156,24 @@ export class RegisterPage implements OnInit {
   }
 
 
-
+  async login(email, password) {
+    let user = {email: email, geslo: md5(password)};
+    let res:any = await this.loginService.login(user);
+    if(res.success==null) {
+      localStorage.setItem("loggedInUser", JSON.stringify(res));
+      this.goToCategoriesPage();
+    }
+    /*
+    this.loginService.login(user).then((res: UserResponse) => {
+      console.log(res);
+      if(res.success==null) {
+        localStorage.setItem("loggedInUser", JSON.stringify(res));
+        this.goToCategoriesPage();
+      }
+    }, (err) => {
+      console.log(err);
+    });*/
+  }
 
 
 

@@ -1,4 +1,6 @@
 export class UserResponse {
+  success: boolean;
+  status: any;
 
   email: string;
   ime: string;

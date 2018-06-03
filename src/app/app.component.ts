@@ -17,7 +17,9 @@ export class MyApp {
   pages: any[] = [
     { title: 'Home', component: 'HomePage' },
     { title: 'Add Event', component: 'AddEventPage' },
-    { title: 'About Event', component: 'AboutEventPage' }
+    { title: 'About Event', component: 'AboutEventPage' },
+    { title: 'Login', component: 'LoginPage'},
+    { title: 'Register', component: 'RegisterPage'}
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,

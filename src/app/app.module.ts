@@ -18,7 +18,23 @@ import { PostServiceProvider } from '../providers/post-service/post-service';
 import {TabsPage} from "../pages/tabs/tabs";
 import {HomePage} from "../pages/home/home";
 import {DashboardPage} from "../pages/dashboard/dashboard";
+import {LoginPage} from "../pages/login/login";
+import {AngularFireModule} from "angularfire2";
+import {AngularFireAuthModule} from "angularfire2/auth";
+import {GooglePlus} from "@ionic-native/google-plus";
+import firebase from 'firebase'
+import {LoginPageModule} from "../pages/login/login.module";
 const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
+const firebaseConfig = {
+  apiKey: "AIzaSyC25Fg3Stf_0gLBb5eUOnI2KtE27V4v8qo",
+  authDomain: "eventstreamerst.firebaseapp.com",
+  databaseURL: "https://eventstreamerst.firebaseio.com",
+  projectId: "eventstreamerst",
+  storageBucket: "eventstreamerst.appspot.com",
+  messagingSenderId: "616828367440"
+}
+firebase.initializeApp(firebaseConfig);
+
 
 @NgModule({
   declarations: [
@@ -31,14 +47,18 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    LoginPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     TabsPage,
     HomePage,
-    DashboardPage
+    DashboardPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
@@ -48,7 +68,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
     EventServiceProvider,
     Network,
     GoogleMaps,
-    PostServiceProvider
+    PostServiceProvider,
+    GooglePlus
   ]
 })
 export class AppModule {}

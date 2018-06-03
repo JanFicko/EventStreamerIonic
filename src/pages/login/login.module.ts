@@ -5,13 +5,13 @@ import {LoginService} from "../../providers/login-services/login.service";
 
 @NgModule({
   declarations: [
-    LoginPage,
+    LoginPage
   ],
   imports: [
     IonicPageModule.forChild(LoginPage)
   ],
   exports: [
-    LoginPage
+    //LoginPage
   ],
   providers: [
     LoginService

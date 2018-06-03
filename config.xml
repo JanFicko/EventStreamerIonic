@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.ionic.eventstreamerst" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>EventStreamerIonic</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -93,4 +93,7 @@
     <engine name="android" spec="7.0.0" />
     <allow-navigation href="http://192.168.0.105:8100" />
     <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
+    <plugin name="cordova-plugin-googleplus" spec="^5.3.0">
+        <variable name="WEB_APPLICATION_CLIENT_ID" value="com.googleusercontent.apps.616828367440-293om2h2millc53c66i3mq3eo6gf5nb5" />
+    </plugin>
 </widget>
