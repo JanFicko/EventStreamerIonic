@@ -4,6 +4,7 @@ import { PostServiceProvider } from '../../providers/post-service/post-service';
 import { Socket } from 'ng-socket-io';
 import { Observable } from 'rxjs/Observable';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
 
 /**
  * Generated class for the AbouteventPage page.
@@ -29,14 +30,15 @@ export class AboutEventPage {
   image: FormData;
 
   options: CameraOptions = {
-    quality: 100,
+    quality: 50,
     destinationType: this.camera.DestinationType.FILE_URI,
     encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE
+    mediaType: this.camera.MediaType.PICTURE,
+    correctOrientation: true
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera,
-              public postServiceProvider: PostServiceProvider, private socket: Socket) {
+              public postServiceProvider: PostServiceProvider, private socket: Socket, private file: File) {
     this.socket.connect();
     this.user = JSON.parse(localStorage.getItem("loggedInUser"));
 
@@ -83,13 +85,33 @@ export class AboutEventPage {
     this.socket.disconnect();
   }
 
-  sendImage(){
-    this.camera.getPicture(this.options).then((imageData) => {
-      let formData = new FormData();
-      formData.append("slika", new Blob(imageData), "filename.jpg");
-      formData.append("id_dogodek", this.eventId);
+  /*
+   * https://ionicframework.com/docs/native/file/
+   */
+   sendImage(){
+     this.camera.getPicture(this.options).then((imageData) => {
+      let fileNameArray = imageData.split("/");
+      let fileName = fileNameArray[fileNameArray.length - 1];
 
-      this.postServiceProvider.sendImage(formData);
+      /*this.file.resolveDirectoryUrl(this.file.dataDirectory)
+        .then((directoryEntry) => {
+          this.file.getFile(directoryEntry, imageData, fileName)
+            .then((fileEntry) => {
+              let formData = new FormData();
+              formData.append("slika", "tukaj1");
+              formData.append("id_dogodek", this.eventId);
+              this.postServiceProvider.sendImage(formData);
+            })
+        });*/
+
+      this.file.readAsArrayBuffer(this.file.externalCacheDirectory, fileName)
+        .then((arrayBuffer) => {
+          let formData = new FormData();
+          formData.append("slika", new Blob([new Uint8Array(arrayBuffer)]));
+          formData.append("id_dogodek", this.eventId);
+          this.postServiceProvider.sendImage(formData);
+        })
+
     }, (err) => {
       console.log(err);
     });

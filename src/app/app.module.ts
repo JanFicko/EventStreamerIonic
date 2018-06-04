@@ -25,6 +25,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
 import { AlertController } from 'ionic-angular';
 import { FilePath } from '@ionic-native/file-path';
+import { File } from '@ionic-native/file';
 
 const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 
@@ -61,7 +62,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
     Geolocation,
     NativeGeocoder,
     AlertController,
-    FilePath
+    FilePath,
+    File
   ]
 })
 export class AppModule {}
