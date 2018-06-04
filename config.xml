@@ -97,10 +97,10 @@
     <plugin name="cordova-plugin-nativegeocoder" spec="^3.1.1" />
     <plugin name="cordova-plugin-filepath" spec="^1.3.0" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
+    <plugin name="cordova-plugin-file" spec="^6.0.1" />
+    <plugin name="cordova-plugin-googleplus" spec="^5.3.0">
+        <variable name="WEB_APPLICATION_CLIENT_ID" value="com.googleusercontent.apps.616828367440-293om2h2millc53c66i3mq3eo6gf5nb5" />
+    </plugin>
     <engine name="browser" spec="5.0.3" />
     <engine name="android" spec="7.0.0" />
-    <plugin name="cordova-plugin-file" spec="^6.0.1" />
-  <plugin name="cordova-plugin-googleplus" spec="^5.3.0">
-    <variable name="WEB_APPLICATION_CLIENT_ID" value="com.googleusercontent.apps.616828367440-293om2h2millc53c66i3mq3eo6gf5nb5" />
-  </plugin>
 </widget>
