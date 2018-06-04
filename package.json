@@ -93,7 +93,6 @@
       "cordova-plugin-nativegeocoder": {},
       "cordova-plugin-filepath": {},
       "cordova-plugin-file": {},
-      "cordova-plugin-datepicker": {},
       "cordova-plugin-googleplus": {
         "WEB_APPLICATION_CLIENT_ID": "com.googleusercontent.apps.616828367440-293om2h2millc53c66i3mq3eo6gf5nb5"
       }
