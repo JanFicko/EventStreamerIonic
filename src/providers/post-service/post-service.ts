@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpRequest, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 /*
@@ -27,10 +27,13 @@ export class PostServiceProvider {
     });
   }
 
-  sendImage(eventId: string, image: FormData) {
-    // Ko pošiljaš sliko ji moraš določit key "image"
+  /*
+   * BUG?
+   * https://github.com/angular/angular/issues/13241
+    */
+  sendImage(formData: FormData) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl, "{id_dogodek:"+ eventId  +", slika:" +image+"}")
+      this.http.post(this.apiUrl, formData)
         .subscribe(res => {
           resolve(res);
         }, (err) => {

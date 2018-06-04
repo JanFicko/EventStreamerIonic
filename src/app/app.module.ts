@@ -18,12 +18,21 @@ import { PostServiceProvider } from '../providers/post-service/post-service';
 import {TabsPage} from "../pages/tabs/tabs";
 import {HomePage} from "../pages/home/home";
 import {DashboardPage} from "../pages/dashboard/dashboard";
+
+import { GooglePlacesAutocompleteComponentModule } from 'ionic2-google-places-autocomplete';
+
+import { Geolocation } from '@ionic-native/geolocation';
+import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
+import { AlertController } from 'ionic-angular';
+import { FilePath } from '@ionic-native/file-path';
+
 import {LoginPage} from "../pages/login/login";
 import {AngularFireModule} from "angularfire2";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import {GooglePlus} from "@ionic-native/google-plus";
 import firebase from 'firebase'
 import {LoginPageModule} from "../pages/login/login.module";
+
 const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 const firebaseConfig = {
   apiKey: "AIzaSyC25Fg3Stf_0gLBb5eUOnI2KtE27V4v8qo",
@@ -48,6 +57,7 @@ firebase.initializeApp(firebaseConfig);
     IonicModule.forRoot(MyApp),
     HttpClientModule,
     SocketIoModule.forRoot(config),
+    GooglePlacesAutocompleteComponentModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     LoginPageModule
@@ -69,6 +79,10 @@ firebase.initializeApp(firebaseConfig);
     Network,
     GoogleMaps,
     PostServiceProvider,
+    Geolocation,
+    NativeGeocoder,
+    AlertController,
+    FilePath,
     GooglePlus
   ]
 })

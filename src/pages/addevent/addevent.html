@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Add event</ion-title>
+    <ion-title>Dodaj dogodek</ion-title>
     <ion-buttons start>
       <button ion-button (click)="cancel()">
         <span color="primary" showWhen="ios">
@@ -30,21 +30,41 @@
 
 
 <ion-content>
+
+  <h1 class="top_margin left_margin right_margin"><span>Dodajte nov dogodek</span></h1>
+
+  <h6 class="top_margin left_margin right_margin"><span>Ustvarili boste nov dogodek na katerem boste lahko v realnem času objavljali posodobitve dogajanja</span></h6>
+
+
   <form *ngIf="form" [formGroup]="form" (ngSubmit)="addEvent()">
     <ion-list>
-      <ion-item>
+      <ion-item class="top_margin right_margin">
         <ion-input type="text" placeholder="Naziv" formControlName="naziv" required="true"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item class="top_margin right_margin">
         <ion-input type="text" placeholder="Opis" formControlName="opis" required="true"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item class="top_margin right_margin">
         <ion-label>Datum</ion-label>
         <ion-datetime displayFormat="MMM DD, YYYY HH:mm" formControlName="datum"></ion-datetime>
       </ion-item>
-      <ion-item>
-        <ion-input type="number" placeholder="User id (temporary)" formControlName="userId" required="true"></ion-input>
+
+      <ion-item class="top_margin right_margin">
+        <ion-label>Izberite kategorije</ion-label>
+        <ion-select multiple="true" formControlName="kategorija">
+          <ion-option>Novice</ion-option>
+          <ion-option>Šport</ion-option>
+          <ion-option>Kultura</ion-option>
+          <ion-option>Zabava</ion-option>
+          <ion-option>Politika</ion-option>
+        </ion-select>
       </ion-item>
+
+
+      <div class="center top_margin">
+        <google-places-autocomplete (callback)="locationName($event[0])" placeholder="Izberite lokacijo" key="AIzaSyAcLM6IIkDsbTAi4iCOUb_RdwRXHhvdWWM"></google-places-autocomplete>
+        <!--<button ion-button default="true" outline="true" color="accent">Izberi lokacijo</button>-->
+      </div>
     </ion-list>
   </form>
 </ion-content>

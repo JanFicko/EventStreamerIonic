@@ -3,16 +3,25 @@
   <ion-navbar>
     <ion-title>Event Streamer</ion-title>
 
-    <ion-buttons end>
-      <button ion-button icon-only (click)="addEvent()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-buttons>
+
+      <ion-buttons end *ngIf="user && user.tip == 'Novinar'">
+        <button ion-button icon-only (click)="addEvent()">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
+
+  <ion-searchbar
+    [(ngModel)]="search_event"
+    [showCancelButton]="false"
+    (ionInput)="search($event)"
+    (ionClear)="onCancel($event)">
+  </ion-searchbar>
+
   <ion-list inset>
     <ion-item *ngIf="events?.length > 0">
         <ion-item-sliding *ngFor="let event of events">

@@ -10,10 +10,13 @@ import { EventServiceProvider } from '../../providers/event-service/event-servic
 })
 export class HomePage {
 
+  public user: any;
   public events: any;
+  query: any = "";
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public eventServiceProvider: EventServiceProvider) {
     this.loadEvents();
+    this.user = JSON.parse(localStorage.getItem("loggedInUser"));
   }
 
   loadEvents(){
@@ -39,6 +42,30 @@ export class HomePage {
       eventId: eventId,
       eventName: eventName,
     });
+  }
+
+  search(event){
+    if(event.inputType == 'insertText'){
+      this.query += event.data;
+    }else if(event.inputType == 'deleteContentBackward'){
+      this.query = this.query.substring(0, this.query.length-1);
+    }
+    console.log(this.query);
+    this.findEventByQuery();
+
+  }
+
+  onCancel(event){
+    this.query = "";
+    console.log(this.query+" -> cancel");
+    this.findEventByQuery();
+  }
+
+  findEventByQuery(){
+    this.eventServiceProvider.getEventByQuery(this.query)
+      .then(data => {
+        this.events = data;
+      });
   }
 
 }
