@@ -8,12 +8,9 @@ export class CategoriesService {
 
   }
 
-  updateCategories(categories: string[]) {
-    //TODO change to add multiple categories on backend
-    //or just use put(/) and add current other data
-    let rObject = {id: '', kategorije: categories} //add localstorage loggedInUser.id
+  updateCategories(object) {
     return new Promise((resolve, reject) => {
-      this.http.post('http://localhost:3000/api/user/kategorija', JSON.stringify(categories), {
+      this.http.post('http://localhost:3000/api/user/kategorija', JSON.stringify(object), {
         headers: new HttpHeaders().set('Content-Type', 'application/json')
       }).subscribe(res=> {
         resolve(res);

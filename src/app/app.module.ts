@@ -27,13 +27,30 @@ import { AlertController } from 'ionic-angular';
 import { FilePath } from '@ionic-native/file-path';
 import { File } from '@ionic-native/file';
 
+import {LoginPage} from "../pages/login/login";
+import {AngularFireModule} from "angularfire2";
+import {AngularFireAuthModule} from "angularfire2/auth";
+import {GooglePlus} from "@ionic-native/google-plus";
+import firebase from 'firebase'
+import {LoginPageModule} from "../pages/login/login.module";
+import {HomePageModule} from "../pages/home/home.module";
+
 const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
+const firebaseConfig = {
+  apiKey: "AIzaSyC25Fg3Stf_0gLBb5eUOnI2KtE27V4v8qo",
+  authDomain: "eventstreamerst.firebaseapp.com",
+  databaseURL: "https://eventstreamerst.firebaseio.com",
+  projectId: "eventstreamerst",
+  storageBucket: "eventstreamerst.appspot.com",
+  messagingSenderId: "616828367440"
+}
+firebase.initializeApp(firebaseConfig);
+
 
 @NgModule({
   declarations: [
     MyApp,
     TabsPage,
-    HomePage,
     DashboardPage
   ],
   imports: [
@@ -41,14 +58,19 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
     IonicModule.forRoot(MyApp),
     HttpClientModule,
     SocketIoModule.forRoot(config),
-    GooglePlacesAutocompleteComponentModule
+    GooglePlacesAutocompleteComponentModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    HomePageModule,
+    LoginPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     TabsPage,
     HomePage,
-    DashboardPage
+    DashboardPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
@@ -63,7 +85,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
     NativeGeocoder,
     AlertController,
     FilePath,
-    File
+    File,
+    GooglePlus
   ]
 })
 export class AppModule {}

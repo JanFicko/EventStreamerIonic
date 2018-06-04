@@ -15,4 +15,35 @@
 
 <ion-content padding>
 
+  <ion-label>Izberite kategorije</ion-label>
+  <ion-list>
+    <form [formGroup]="categoriesForm" (ngSubmit)="onSubmit()">
+      <ion-row>
+        <ion-label>Novice</ion-label>
+        <ion-checkbox formControlName="news"></ion-checkbox>
+      </ion-row>
+      <ion-row>
+        <ion-label>Šport</ion-label>
+        <ion-checkbox formControlName="sport"></ion-checkbox>
+      </ion-row>
+      <ion-row>
+        <ion-label>Kultura</ion-label>
+        <ion-checkbox formControlName="culture"></ion-checkbox>
+      </ion-row>
+      <ion-row>
+        <ion-label>Zabava</ion-label>
+        <ion-checkbox formControlName="entertainment"></ion-checkbox>
+      </ion-row>
+      <ion-row>
+        <ion-label>Politika</ion-label>
+        <ion-checkbox formControlName="politics"></ion-checkbox>
+      </ion-row>
+      <ion-row>
+        <button ion-button>
+          <ion-label>Potrdi</ion-label>
+        </button>
+      </ion-row>
+      </form>
+  </ion-list>
+
 </ion-content>
