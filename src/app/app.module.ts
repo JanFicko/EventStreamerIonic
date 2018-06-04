@@ -32,6 +32,7 @@ import {AngularFireAuthModule} from "angularfire2/auth";
 import {GooglePlus} from "@ionic-native/google-plus";
 import firebase from 'firebase'
 import {LoginPageModule} from "../pages/login/login.module";
+import {HomePageModule} from "../pages/home/home.module";
 
 const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 const firebaseConfig = {
@@ -49,7 +50,6 @@ firebase.initializeApp(firebaseConfig);
   declarations: [
     MyApp,
     TabsPage,
-    HomePage,
     DashboardPage
   ],
   imports: [
@@ -60,6 +60,7 @@ firebase.initializeApp(firebaseConfig);
     GooglePlacesAutocompleteComponentModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
+    HomePageModule,
     LoginPageModule
   ],
   bootstrap: [IonicApp],

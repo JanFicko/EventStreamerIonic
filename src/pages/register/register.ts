@@ -6,6 +6,7 @@ import md5 from 'md5';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserResponse} from "../shared/UserResponse";
 import {LoginService} from "../../providers/login-services/login.service";
+import {MyApp} from "../../app/app.component";
 
 @IonicPage()
 @Component({
@@ -36,8 +37,6 @@ export class RegisterPage implements OnInit {
     let loggedInUser = localStorage.getItem("loggedInUser");
 
     if(loggedInUser) {
-
-      // TODO setToken
 
       this.loggedIn = true;
 
@@ -73,7 +72,7 @@ export class RegisterPage implements OnInit {
   }
 
   redirectHome() {
-    this.navCtrl.push('HomePage');
+    this.navCtrl.push(MyApp);
   }
 
   goToCategoriesPage() {

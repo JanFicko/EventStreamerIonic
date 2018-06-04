@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {CategoriesService} from "../../providers/categories-service/categories.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {MyApp} from "../../app/app.component";
 
 /**
  * Generated class for the CategoriesPage page.
@@ -53,7 +54,7 @@ export class CategoriesPage implements OnInit{
           user.kategorija = kategorije;
           localStorage.setItem("loggedInUser", JSON.stringify(user));
         }
-        this.navCtrl.push('HomePage');
+        this.navCtrl.push(MyApp);
       }
     },(error)=>{
         console.log(error);

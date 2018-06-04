@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, ModalController, NavParams, Platform} from 'ionic-angular';
+import {IonicPage, NavController, ModalController, NavParams, Platform, ViewController, App} from 'ionic-angular';
 import {LoginService} from "../../providers/login-services/login.service";
 import {User} from "../shared/User";
 import {UserResponse} from "../shared/UserResponse";
@@ -10,6 +10,8 @@ import firebase from 'firebase'
 import {AngularFireAuth} from "angularfire2/auth";
 import {CategoriesPage} from "../categories/categories";
 import {RegisterService} from "../../providers/login-services/register.service";
+import {HomePage} from "../home/home";
+import {MyApp} from "../../app/app.component";
 
 @IonicPage()
 @Component({
@@ -32,10 +34,15 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController,
               public loginService: LoginService, public googleplus: GooglePlus, public platform: Platform,
-              public afAuth: AngularFireAuth, public registerService: RegisterService) {
+              public afAuth: AngularFireAuth, public registerService: RegisterService,
+              private viewCtrl: ViewController, private appCtrl:App) {
 
     this.checkUser();
 
+  }
+
+  ionViewDidEnter() {
+    this.checkUser();
   }
 
   login() {
@@ -44,7 +51,7 @@ export class LoginPage {
     this.loginService.login(user).then((res: UserResponse) => {
       if(res.success==null) {
         localStorage.setItem("loggedInUser", JSON.stringify(res));
-        this.navCtrl.push('HomePage').then(() => {
+        this.navCtrl.push(MyApp).then(() => {
           const index = this.navCtrl.getActive().index;
           this.navCtrl.remove(0, index);
         });
@@ -116,10 +123,12 @@ export class LoginPage {
   }
 
   logOut() {
+
     localStorage.removeItem("loggedInUser");
     this.loggedIn = false;
     this.loggedInUser = false;
-    this.navCtrl.push("HomePage");
+    this.appCtrl.getRootNav().push(MyApp);
+
   }
 
   async tryLogin(userReq) {
@@ -152,7 +161,6 @@ export class LoginPage {
 
   checkUser() {
     this.loggedInUser  = JSON.parse(localStorage.getItem("loggedInUser"));
-    console.log(this.loggedInUser);
 
     if(this.loggedInUser) {
 
