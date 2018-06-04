@@ -15,13 +15,18 @@
 <ion-content padding>
 
   <ion-grid>
-    <ion-row *ngFor="let elem of posts">
+    <ion-row *ngFor="let elem of posts; let i = index">
 
       <ion-col col-9 class="post" [ngClass]="'post_message'">
-        <div class="time">[{{elem.datum}}]:</div>
+        <div class="time">[{{elem._id}}]:</div>
         <span *ngIf="elem.komentar">{{elem.komentar}}</span>
         <img *ngIf="elem.slika" src="http://localhost:3000/uploads/{{eventId}}/{{elem.slika}}" />
       </ion-col>
+
+      <button class="likeButton" *ngIf="user && user.tip != 'novinar'" ion-button small round icon-only
+              (click)="handleClick(i, elem._id, eventId, user._id)" clear>
+        <ion-icon class="icon" name="md-heart"> {{likeNum[i].size}}</ion-icon>
+      </button>
 
     </ion-row>
   </ion-grid>

@@ -22,6 +22,8 @@ import { File } from '@ionic-native/file';
 
 export class AboutEventPage {
   public user: any;
+  public likeNum: any = [];
+  public buttonColor: any = "blue";
   posts = [];
   comment = '';
 
@@ -60,6 +62,8 @@ export class AboutEventPage {
           Object.keys(data).forEach(key => {
             this.posts.push(data[key]);
           });
+
+          this.countLikes();
         }
       });
   }
@@ -115,6 +119,43 @@ export class AboutEventPage {
     }, (err) => {
       console.log(err);
     });
+  }
+
+  handleClick(event, idPost, idEvent, idUser){
+    let data = {
+      id_uporabnik: idUser,
+      id_dogodek: idEvent,
+      id_objava: idPost
+    };
+
+    let response = this.postServiceProvider.createLike(data);
+    response.then(response => {
+      let json = JSON.parse(JSON.stringify(response));
+      if(json.like == true){
+        this.likeNum[event].size = this.likeNum[event].size + 1;
+      }else{
+        this.likeNum[event].size = this.likeNum[event].size - 1;
+      }
+    });
+
+  }
+
+  countLikes(){
+    this.likeNum = [];
+    let size = 0;
+
+    for(let i=0; i<this.posts.length; i++){
+       size = 0;
+
+       for (let j=0; j<this.posts[i].like.length; j++){
+         if(this.posts[i].like[j].like){
+           size++;
+         }
+       }
+      this.likeNum.push({
+        size: size
+      })
+     }
   }
 
 }

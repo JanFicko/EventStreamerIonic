@@ -52,4 +52,25 @@ export class PostServiceProvider {
     });
   }
 
+  getLikesByPost(idEvent, idPost) {
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl+idEvent+"/"+idPost).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
+  createLike(data){
+    return new Promise(resolve => {
+      this.http.post(this.apiUrl+"like", data)
+        .subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
 }
