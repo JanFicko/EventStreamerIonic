@@ -15,7 +15,7 @@
 
 <ion-content padding>
 
-  <ion-label>Izberite kategorije</ion-label>
+  <ion-label style="font-size: 20px;">Izberite kategorije</ion-label>
   <ion-list>
     <form [formGroup]="categoriesForm" (ngSubmit)="onSubmit()">
       <ion-row>
@@ -39,7 +39,7 @@
         <ion-checkbox formControlName="politics"></ion-checkbox>
       </ion-row>
       <ion-row>
-        <button ion-button>
+        <button ion-button full>
           <ion-label>Potrdi</ion-label>
         </button>
       </ion-row>

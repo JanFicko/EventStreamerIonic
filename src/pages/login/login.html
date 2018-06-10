@@ -1,31 +1,40 @@
 <ion-header>
 
   <ion-navbar padding>
-    <ion-title style="text-align: center;">Login in</ion-title>
+    <ion-title style="text-align: center;" *ngIf="!loggedIn">Prijava</ion-title>
+    <ion-title style="text-align: center;" *ngIf="loggedIn">Profil</ion-title>
   </ion-navbar>
 
 </ion-header>
 <ion-content>
-  <div style="">
+  <div style="margin-top:15px;">
     <div class="login-box" *ngIf="!loggedIn">
       <form (ngSubmit)="login()" #registerForm="ngForm">
+        <ion-row class="loginTitleWrapper">
+          <ion-label class="loginTitle">Prijava v apliakcijo</ion-label>
+        </ion-row>
+        <ion-row class="loginTitleWrapper">
+          <ion-label class="loginText">Prijava v aplikacijo možna z uporabniškim imenom in geslo ali z Google računom</ion-label>
+        </ion-row>
         <ion-row>
-          <ion-col>
-            <ion-list inset>
+          <ion-col style="padding: 5px 7px">
+            <ion-list inset style="margin: 0">
+
+
 
               <ion-item>
-                <ion-input type="text" placeholder="name" name="name" [(ngModel)]="email"></ion-input>
+                <ion-input type="text" placeholder="Email" name="name" [(ngModel)]="email"></ion-input>
               </ion-item>
 
               <ion-item>
-                <ion-input type="password" placeholder="password" name="password"
+                <ion-input type="password" placeholder="Geslo" name="password"
                            [(ngModel)]="password"></ion-input>
               </ion-item>
 
             </ion-list>
           </ion-col>
         </ion-row>
-
+<!--
         <ion-row>
 
           <ion-col class="signup-col">
@@ -33,19 +42,26 @@
           </ion-col>
 
         </ion-row>
+-->
+        <div class="loginLogoutButton">
+          <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid" style="height: 45px;">
+            PRIJAVA
+          </button>
+        </div>
 
       </form>
 
-      <ion-row>
-        <ion-col class="signup-col" style="text-align: center;">
-          <!--<google-login></google-login>-->
-          <button ion-button (click)="loginWithGoogle()" block outline>
-            <ion-icon name="logo-google"></ion-icon>
-            <ion-label>LOGIN WITH GOOGLE</ion-label>
-          </button>
-        </ion-col>
-      </ion-row>
+      <ion-label (click)="goToRegistration()" class="registrationText">
+        Še niste registrirani? Kliknite tukaj?
+      </ion-label>
 
+      <ion-row style="padding-left:15px; padding-top: 8px;">
+          <button class="googleButton" (click)="loginWithGoogle()">
+            <img src="assets/icon/revised-google-logo.png" height="20" width="20"/>
+            <ion-label style="margin: 0;">PRIJAVA</ion-label>
+          </button>
+      </ion-row>
+<!--
       <ion-row>
         <ion-col class="signup-col" style="text-align: center">
           <label>or</label>
@@ -57,10 +73,11 @@
           <button ion-button class="submit-btn" full style="background-color: indianred;" (click)="goToRegistration()">Register</button>
         </ion-col>
       </ion-row>
-
+-->
     </div>
 
     <div *ngIf="loggedIn">
+      <!--
       <ion-row>
         <ion-col>
           Ime
@@ -91,13 +108,48 @@
           <ion-label>Edit profile</ion-label>
         </button>
       </ion-row>
-      <ion-row>
-        <button ion-button style="width:100%;" (click)="logOut()">
-          <ion-icon name="create"></ion-icon>
-          <ion-label>Log out</ion-label>
+      <ion-row class="loginLogoutButton">
+        <button ion-button class="submit-btn" full style="height: 45px;" (click)="logOut()">
+          ODJAVA
         </button>
       </ion-row>
+      -->
+
+      <div class="profileWrapper">
+        <div class="infoWrapper">
+          <span>Ime</span>
+          <span>{{loggedInUser.ime}}</span>
+        </div>
+        <div class="infoWrapper">
+          <span>Priimek</span>
+          <span>{{loggedInUser.priimek}}</span>
+        </div>
+        <div class="infoWrapper">
+          <span>Email</span>
+          <span>{{loggedInUser.email}}</span>
+        </div>
+        <div class="infoWrapper" *ngIf="loggedInUser.medij!='-' && loggedInUser.medij!='' && loggedInUser.medij!=null">
+          <span>Medij</span>
+          <span>{{loggedInUser.medij}}</span>
+        </div>
+        <div class="infoWrapper">
+          <span>Kategorije</span>
+          <span>
+            <span *ngFor="let kategorija of categories">{{kategorija}}</span>
+          </span>
+          <span class="editSpan" (click)="goToCategoriesPage()">
+            uredi
+          </span>
+        </div>
+        <div class="loginLogoutButton">
+          <button ion-button class="submit-btn" full style="height: 45px;" (click)="logOut()">
+            ODJAVA
+          </button>
+        </div>
+      </div>
     </div>
+
+
 
   </div>
 </ion-content>

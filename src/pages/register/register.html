@@ -1,37 +1,46 @@
 <ion-header>
 
   <ion-navbar padding>
-    <ion-title style="text-align: center;">Register</ion-title>
+    <ion-title style="text-align: center;">Registracija</ion-title>
   </ion-navbar>
 
 </ion-header>
 <ion-content>
   <div style="/*height: 100%; width: 100%; display: flex; align-items: center; justify-content: center;*/">
     <div class="login-box" *ngIf="!loggedIn" style="width: 100%;">
+      <ion-row class="loginTitleWrapper">
+        <ion-label class="registerTitle">Pridružite se ekipi EventStream</ion-label>
+      </ion-row>
+      <ion-row class="loginTitleWrapper">
+        <ion-label class="registerText">
+          Z EventStram računom imate možnost preanašanja in spremljanja dogodkov v relanem času osebam, ki nimajo
+          možnosti spreamljave avdio-video vsebin.
+        </ion-label>
+      </ion-row>
       <form (ngSubmit)="register()" #registerForm="ngForm" [formGroup]="registrationForm" >
         <ion-row>
           <ion-col>
-            <ion-list inset>
+            <ion-list inset style="margin-top: 0px; margin-bottom: 0px;">
 
               <ion-item>
-                <ion-input type="text" placeholder="name" name="name" formControlName="name" required></ion-input>
+                <ion-input type="text" placeholder="Ime" name="name" formControlName="name" required></ion-input>
               </ion-item>
 
               <ion-item>
-                <ion-input type="text" placeholder="surname" name="surname" formControlName="surname" required></ion-input>
+                <ion-input type="text" placeholder="Priimek" name="surname" formControlName="surname" required></ion-input>
               </ion-item>
 
               <ion-item>
-                <ion-input type="text" placeholder="email" name="email" formControlName="email" required></ion-input>
+                <ion-input type="text" placeholder="Email" name="email" formControlName="email" required></ion-input>
               </ion-item>
 
               <ion-item>
-                <ion-input type="password" placeholder="password" name="password"
+                <ion-input type="password" placeholder="Geslo" name="password"
                            formControlName="password" required></ion-input>
               </ion-item>
 
               <ion-item>
-                <ion-input type="password" placeholder="confirmPassword" name="confirmPassword"
+                <ion-input type="password" placeholder="Ponovite geslo" name="confirmPassword"
                            formControlName="password2" required></ion-input>
               </ion-item>
 
@@ -45,27 +54,25 @@
               </ion-item>
 
               <ion-item *ngIf="registerForm.value.type">
-                <ion-input type="text" placeholder="media" name="media" formControlName="media"></ion-input>
+                <ion-input type="text" placeholder="Medij" name="media" formControlName="media"></ion-input>
               </ion-item>
 
             </ion-list>
           </ion-col>
         </ion-row>
 
-        <ion-row>
-          <ion-col class="signup-col">
-            <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Register</button>
-          </ion-col>
-        </ion-row>
+        <div class="clearFieldsText">
+          <ion-icon name="trash"></ion-icon>
+          <span (click)="clearForm()">
+            Počisti polja
+          </span>
+        </div>
+        <div class="loginLogoutButton">
+            <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">
+              Registracija
+            </button>
+        </div>
       </form>
-      <ion-row>
-        <ion-col class="signup-col" style="text-align: center;">
-          <button ion-button (click)="clearForm()" style="background-color: indianred;">
-            <ion-icon name="trash" style="padding-right: 8px;"></ion-icon>
-            <ion-label>Clear fields</ion-label>
-          </button>
-        </ion-col>
-      </ion-row>
       <div *ngIf="formErrors.email">
       </div>
     </div>

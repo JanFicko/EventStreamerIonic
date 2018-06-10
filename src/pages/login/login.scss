@@ -1,2 +1,78 @@
 .page-login {
+
+}
+
+.loginTitleWrapper {
+  color: #696969;
+  padding: 0 15px;
+}
+
+.loginTitle {
+  font-size: 22px;
+  display: block;
+  white-space: normal;
+}
+
+.loginText {
+  white-space: normal;
+}
+
+.loginLogoutButton {
+  position: absolute;
+  bottom: 0px;
+  left:0px;
+  width: 100%;
+}
+
+.registrationText {
+  padding: 0 15px;
+  color: #696969;
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+.googleButton {
+  -webkit-box-shadow: -1px 2px 6px 0px rgba(105,105,105,1);
+  -moz-box-shadow: -1px 2px 6px 0px rgba(105,105,105,1);
+  box-shadow: -1px 2px 6px 0px rgba(105,105,105,1);
+  width: 116px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+}
+
+.profileWrapper {
+
+  padding:15px;
+  color: #4a4a4a;
+
+  .infoWrapper {
+
+    margin-bottom: 12px;
+
+    > span:nth-child(1) {
+      font-size: 13px;
+      display: block;
+    }
+
+    > span:nth-child(2) {
+      font-size: 18px;
+      display: block;
+      margin-top: 2px;
+
+      span {
+        display: block;
+      }
+    }
+
+  }
+
+  .editSpan {
+    font-size: 12px;
+    color: orange;
+    text-decoration: underline;
+  }
+
+
 }

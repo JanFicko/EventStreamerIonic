@@ -31,6 +31,7 @@ export class LoginPage {
   googleUser = null;
 
   googleCred = null;
+  categories = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController,
               public loginService: LoginService, public googleplus: GooglePlus, public platform: Platform,
@@ -138,7 +139,7 @@ export class LoginPage {
     let res:any = await this.loginService.login(user);
     if(res.success==null) {
       localStorage.setItem("loggedInUser", JSON.stringify(res));
-      this.navCtrl.push("HomePage");
+      this.navCtrl.push(MyApp);
     }
     else {
       let givenName = userReq.additionalUserInfo.profile.given_name;
@@ -160,11 +161,16 @@ export class LoginPage {
   }
 
   checkUser() {
-    this.loggedInUser  = JSON.parse(localStorage.getItem("loggedInUser"));
+    this.loggedInUser  = JSON.parse(localStorage.getItem("loggedInUser"));;
 
     if(this.loggedInUser) {
 
       this.loggedIn = true;
+
+      for(let k of this.loggedInUser.kategorija) {
+        if(this.categories.indexOf(k.naziv)==(-1))
+          this.categories.push(k.naziv);
+      }
 
     }
   }

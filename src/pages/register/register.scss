@@ -3,3 +3,22 @@ page-register {
     border-left: 2px solid red;
   }
 }
+
+.registerTitle {
+  font-size: 18px;
+  display: block;
+  white-space: normal;
+  margin-bottom: 2px;
+}
+
+.registerText {
+  white-space: normal;
+  font-size:13px;
+  margin-top:0px;
+  margin-bottom:0px;
+}
+
+.clearFieldsText {
+  color: orange;
+  padding-left: 20px;
+}
