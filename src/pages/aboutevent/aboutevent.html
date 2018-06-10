@@ -10,23 +10,39 @@
     <ion-title>{{eventName}}</ion-title>
   </ion-navbar>
 
+  <ion-grid>
+    <ion-row col-10>
+      {{description}}
+    </ion-row>
+  </ion-grid>
+
 </ion-header>
 
-<ion-content padding>
+<ion-content>
 
   <ion-grid>
+    <ion-row>
+      <ion-col col-12></ion-col>
+    </ion-row>
     <ion-row *ngFor="let elem of posts; let i = index">
 
-      <ion-col col-9 class="post" [ngClass]="'post_message'">
-        <div class="time">[{{elem.datum}}]:</div>
+      <ion-col col-2>
+        <div class="dateLeft">{{elem.datum | date : "dd MMM" }}</div>
+      </ion-col>
+
+      <ion-col col-8 class="post" [ngClass]="'post_message'">
+        <div class="time">{{elem.datum | date : "HH:mm" }}</div>
         <span *ngIf="elem.komentar">{{elem.komentar}}</span>
         <img *ngIf="elem.slika" src="http://localhost:3000/uploads/{{eventId}}/{{elem.slika}}" />
       </ion-col>
 
-      <button class="likeButton" *ngIf="user && user.tip != 'novinar'" ion-button small round icon-only
-              (click)="handleClick(i, elem._id, eventId, user._id)" clear>
-        <ion-icon class="icon" name="md-heart"> {{likeNum[i].size}}</ion-icon>
-      </button>
+      <ion-col col-2 >
+        <button  *ngIf="user && user.tip != 'novinar'" ion-button icon-start
+                (click)="handleClick(i, elem._id, eventId, user._id)" clear>
+          <ion-icon class="leftleft" name="md-heart"></ion-icon>
+          &nbsp;{{likeNum[i].size}}
+        </button>
+      </ion-col>
 
     </ion-row>
   </ion-grid>

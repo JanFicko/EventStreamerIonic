@@ -30,6 +30,7 @@ export class AboutEventPage {
   eventId: string;
   eventName: string;
   image: FormData;
+  description: string;
 
   options: CameraOptions = {
     quality: 50,
@@ -46,6 +47,8 @@ export class AboutEventPage {
 
     this.eventId = navParams.get('eventId');
     this.eventName = navParams.get('eventName');
+    this.description = navParams.get('description');
+    console.log(this.description);
 
     this.getPosts();
 

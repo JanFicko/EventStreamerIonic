@@ -38,9 +38,12 @@ export class HomePage {
    * Navigate to the detail page for this item.
    */
   openEvent(eventId: string, eventName: string) {
+    let event = this.events.find(item => item._id === eventId);
+
     this.navCtrl.push('AboutEventPage', {
       eventId: eventId,
       eventName: eventName,
+      description: event.opis
     });
   }
 
