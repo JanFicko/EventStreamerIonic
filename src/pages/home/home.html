@@ -12,7 +12,7 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content class="home-background">
 
   <ion-searchbar
     [(ngModel)]="search_event"
@@ -21,13 +21,25 @@
     (ionClear)="onCancel($event)">
   </ion-searchbar>
 
-  <ion-list inset>
-    <ion-item *ngIf="events?.length > 0">
-        <ion-item-sliding *ngFor="let event of events">
-          <button ion-item (click)="openEvent(event._id, event.naziv)">
-            <h2>{{event.naziv}}</h2>
-          </button>
-        </ion-item-sliding>
+  <ion-list inset style="margin-top:0;">
+    <ion-item *ngIf="events?.length > 0" style="background-color: transparent; padding-left:10px;">
+        <div *ngFor="let event of events" style="margin: 10px 0; border-radius:6px;">
+          <div style="background-color: white; text-align:initial; width: 100%; min-height:20px;
+          padding: 5px 10px; display:flex; border-radius: inherit; min-height: 50px;"
+               (click)="openEvent(event._id, event.naziv)">
+            <div style="display: flex; align-items: center; padding-right: 10px;">
+              <img src="../../assets/icon/video512x512.png" height="20" width="20"/>
+            </div>
+            <div style="flex: 1; align-items: center; padding-left: 10px; display: flex; flex-direction: column;
+            align-items: start; justify-content: center;">
+              <span style="font-size:13px; color: black; display: block;">{{event.naziv}}</span>
+              <span style="font-size:10px; color: grey; display: block; margin-top:1px;">{{event.datum | date: 'dd.MMM.yyyy'}}</span>
+            </div>
+            <div style="display: flex; align-items: center;">
+              <ion-icon name="arrow-forward"></ion-icon>
+            </div>
+          </div>
+        </div>
     </ion-item>
 
 

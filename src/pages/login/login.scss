@@ -52,8 +52,14 @@
     margin-bottom: 12px;
 
     > span:nth-child(1) {
-      font-size: 13px;
+      font-size: 14px;
+      font-weight: 600;
       display: block;
+      border-bottom: 1px solid orange;
+      margin-right: 63px;
+      margin-left: -7px;
+      padding-left: 7px;
+      padding-bottom: 2px;
     }
 
     > span:nth-child(2) {
@@ -69,10 +75,23 @@
   }
 
   .editSpan {
-    font-size: 12px;
+    font-size: 14px;
     color: orange;
     text-decoration: underline;
+    padding-top: 4px;
+    line-height: 24px;
   }
 
+
+}
+
+.profileTable {
+
+  width:93%;
+  margin:10px;
+
+  td {
+    border: 1px solid cornflowerblue;
+  }
 
 }

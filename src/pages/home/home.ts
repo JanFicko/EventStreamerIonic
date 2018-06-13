@@ -23,6 +23,7 @@ export class HomePage {
       this.eventServiceProvider.getEvents()
         .then(data => {
           this.events = data;
+          console.log(this.events);
         });
   }
 
