@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, ModalController } from 'ionic-angular';
+import {IonicPage, NavController, ModalController, Keyboard} from 'ionic-angular';
 import {RegisterService} from "../../providers/login-services/register.service";
 import {User} from "../shared/User";
 import md5 from 'md5';
@@ -32,7 +32,7 @@ export class RegisterPage implements OnInit {
   };
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public registerService: RegisterService,
-              private fb: FormBuilder, public loginService: LoginService) {
+              private fb: FormBuilder, public loginService: LoginService, public keyboard: Keyboard) {
 
     let loggedInUser = localStorage.getItem("loggedInUser");
 

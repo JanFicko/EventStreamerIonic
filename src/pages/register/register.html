@@ -67,7 +67,7 @@
             Počisti polja
           </span>
         </div>
-        <div class="loginLogoutButton">
+        <div class="loginLogoutButton" [hidden]="keyboard.isOpen()">
             <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">
               Registracija
             </button>
